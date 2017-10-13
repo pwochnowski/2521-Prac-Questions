@@ -1,21 +1,16 @@
-# Makefile for COMP1917 15s2 Week 08 Lab
+# Makefile for stuff 
 
 CC=gcc
-CFLAGS=-Wall -Werror -g
-LIBS=url_file.o html.o set.o queue.o graph.o stack.o
-TESTS=ts tq tk tg
+CFLAGS=-Wall -Werror 
+LIBS=Queue.o Graph.o Stack.o
 
-crawl : crawl.o $(LIBS)
-	gcc -g -o crawl crawl.o $(LIBS) -lcurl
+test : testGraph.o $(LIBS)
+	gcc -o runtests testGraph.o $(LIBS) 
 
-tests : $(TESTS)
 
-url_file.o : url_file.c url_file.h
-html.o : html.c html.h
-set.o : set.c set.h
-queue.o : queue.c queue.h
-stack.o : stack.c stack.h
-graph.o : graph.c graph.h
+Queue.o : Queue.c Queue.h
+Stack.o : Stack.c Stack.h
+Graph.o : Graph.c Graph.h
 
 ts : ts.o set.o
 	gcc -o ts ts.o set.o

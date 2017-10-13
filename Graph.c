@@ -44,20 +44,21 @@ int hasCycle(Graph g) {
   return 0;
 }
 
-// Write a function which takes in 
-// g : a Graph
-// s : a starting Vertex
-// d : maximum distance from the starting Vertex
-// vs : the address of an array of Vertex values
-// and stores in vs all vertices which lie within a distance d of the
-// start vertex, and returns a count of the number of Vertex values
-// stored in the array.
-// (Distance is measured in number of edges on the shortest path
-// from the starting vertex)
+/*
+ *
+ * Given a unweighted graph, a starting vertex and a distance, return an array which contains all the
+ * vertices that are at most that distance away. The vertices in the array should be in order
+ * of increasing distance, and for vertices that are the same distance away, ordered from smallest to largest. You should also include the initial vertex in the array.
+ *
+ *  0 -> 1 -> 2
+ *  |
+ *  v
+ *  3
+ *  within(g,0,1,&n) ==> [0, 1, 3], n == 3
+ */
+int* within(Graph g, int s, int d, int *size) {
 
-int within(Graph g, Vertex s, int d, Vertex *vs) {
-
-  return 0;
+  return NULL;
 }
 
 
@@ -121,23 +122,31 @@ int bipartition(Graph g, List l1, List l2) {
    You can ignore these methods below, unless you want examples of using the  graph 
 */
 
-// check validity of Vertex
-int validV(Graph g, Vertex v)
+// check validity of Vertex 
+int validV(Graph g, int v)
 {
 	return (g != NULL && v >= 0 && v < g->nV);
 }
 
 // make an edge
-Edge mkEdge(Graph g, Vertex v, Vertex w)
+Edge mkEdge(Graph g, int v, int w)
 {
 	assert(g != NULL && validV(g,v) && validV(g,w));
 	Edge new = {v,w}; // struct assignment
 	return new;
 }
 
-// insert an Edge
+// insert a bidirectional edge from v to w
 // - sets (v,w) and (w,v)
-void insertEdge(Graph g, Vertex v, Vertex w, int wt)
+void insertEdge(Graph g, int v, int w, int wt)
+{
+  insertEdge(g,v,w,wt);
+  insertEdge(g,w,v,wt);
+}
+
+//insert an edge from v to w
+// - sets (v,w)
+void insertEdge(Graph g, int v, int w, int wt)
 {
 	assert(g != NULL && validV(g,v) && validV(g,w));
 	if (g->edges[v][w] == 0) {
@@ -146,10 +155,9 @@ void insertEdge(Graph g, Vertex v, Vertex w, int wt)
 		g->nE++;
 	}
 }
-
 // remove an Edge
 // - unsets (v,w) and (w,v)
-void removeEdge(Graph g, Vertex v, Vertex w)
+void removeEdge(Graph g, int v, int w)
 {
 	assert(g != NULL && validV(g,v) && validV(g,w));
 	if (g->edges[v][w] != 0) {
@@ -181,8 +189,14 @@ Graph newGraph(int nV)
 // free memory associated with graph
 void dropGraph(Graph g)
 {
-	assert(g != NULL);
-	// not needed for this lab
+  assert(g != NULL);
+  int v;
+  for (v = 0; v < g->nV; v++) {
+    free(g->edges[v]);
+  }
+  free(g->edges);
+  free(g);
+
 }
 
 // display graph, using names for vertices
