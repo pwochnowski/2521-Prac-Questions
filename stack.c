@@ -5,12 +5,12 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "stack.h"
+#include "Stack.h"
 
 typedef struct Node *Link;
 
 typedef struct Node {
-	char *val;
+	int val;
 	Link  next;
 } Node;
 	
@@ -22,12 +22,12 @@ typedef struct StackRep {
 
 Stack newStack();
 void  disposeStack(Stack);
-void  pushOnto(Stack,char *);
-char  *popFrom(Stack);
+void  pushOnto(Stack,int );
+int popFrom(Stack);
 int   emptyStack(Stack);
 void  showStack(Stack s);
 
-static Link newNode(char *);
+static Link newNode(int );
 static void disposeNode(Link);
 
 
@@ -56,7 +56,7 @@ void disposeStack(Stack s)
 
 // pushOnto(Stack,Str)
 // - add Str to top of Stack
-void pushOnto(Stack s, char *str)
+void pushOnto(Stack s, int str)
 {
 	Link new = newNode(str);
 	new->next = s->top;
@@ -65,10 +65,10 @@ void pushOnto(Stack s, char *str)
 
 // popFrom(Stack)
 // - return string from top of Stack
-char *popFrom(Stack s)
+int popFrom(Stack s)
 {
 	assert (s != NULL && s->top != NULL);
-    char *str = s->top->val;
+    int str = s->top->val;
 	Link old = s->top;
 	s->top = old->next;
 	free(old);
@@ -94,7 +94,7 @@ void showStack(Stack s)
 		int id = 0;
 		curr = s->top;
 		while (curr != NULL) {
-			printf("[%03d] %s\n", id, curr->val);
+			printf("[%03d] %d\n", id, curr->val);
 			id++;
 			curr = curr->next;
 		}
@@ -103,11 +103,11 @@ void showStack(Stack s)
 
 // Helper functions
 
-static Link newNode(char *str)
+static Link newNode(int str)
 {
 	Link new = malloc(sizeof(Node));
 	assert(new != NULL);
-	new->val = strdup(str);
+        new->val = str;
 	new->next = NULL;
 	return new;
 }
@@ -115,7 +115,6 @@ static Link newNode(char *str)
 static void disposeNode(Link curr)
 {
 	assert(curr != NULL);
-	free(curr->val);
 	free(curr);
 }
 

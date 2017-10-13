@@ -43,7 +43,27 @@ typedef struct GraphRep {
 // the graph has a cycle, 0 otherwise
 
 int hasCycle(Graph g) {
+  Stack s = newStack();
+  int* pred = calloc(g->nV,sizeof(int));
+  for (int i=0; i<g->nV; i++) pred[i] = -1;
 
+  for (int i=0; i<g->nV; i++) {
+    if (pred[i] != -1) continue;
+    pushOnto(s,i);
+    int prev = i;
+    pred[i] = i;
+    while (!emptyStack(s)) {
+      int v = popFrom(s);
+      for (int j=0; j<g->nV; j++) {
+        if (g->edges[v][j] == 0) continue;
+        if (pred[j] != -1 && pred[v] != j) return 1; //Return 1, if we have seen the neighbour before 
+        if (pred[j] != -1) continue;
+        pred[j] = v; //Keep track of where we came from so we can ignore the vertex later
+        pushOnto(s,j);
+      }
+      prev = v;
+    }    
+  }
   return 0;
 }
 
@@ -61,9 +81,35 @@ int hasCycle(Graph g) {
  *  within(g,0,1,&n) ==> [0, 1, 3], n == 3
  */
 int* within(Graph g, int s, int d, int *size) {
+  Queue q = newQueue();
+  int* dist = calloc(g->nV, sizeof(int));
+  int* res = calloc(g->nV, sizeof(int));
+  for (int i=0; i<g->nV; i++) dist[i] = -1;
+  int ct = 0;
+ 
+  int currDist = 0;
+  enterQueue(q, s);
+  dist[s] = currDist; 
+  int v;
 
-  return NULL;
-} 
+  res[ct++] = s;
+  while (!emptyQueue(q)) {
+      v = leaveQueue(q); 
+      currDist = dist[v];
+      //Check if we can still add 
+      if (currDist >= d) break;
+      //Add all neighbours with distance currDist+1 to result/queue
+      for (int i= g->nV-1; i>=0; i--) {
+        if (dist[i] != -1 || g->edges[v][i]==0) continue;
+        dist[i] = currDist+1;
+        enterQueue(q,i);
+        res[ct++] = i;
+      }
+  } 
+
+  *size = ct;
+  return res;
+}
 
 
 
@@ -118,6 +164,32 @@ int *components(Graph g) {
 */
 
 int bipartition(Graph g, List l1, List l2) {
+  int* clr = calloc(g->nV, sizeof(int));
+  //int* pred = calloc(g->nV, sizeof(int));
+  for (int i=0; i<g->nV; i++) clr[i] = 0;
+
+  Queue q = newQueue();
+  for (int i=0; i<g->nV; i++) {
+    if (clr[i]) continue;
+    clr[i] = 1;
+    enterQueue(q,i);
+    while (!emptyQueue(q)) {
+
+      int v = leaveQueue(q);
+      ListInsert((clr[v]==1) ? l1 : l2, v);
+      int nextClr = (clr[v]==1) ? 2 : 1; //Set next colour
+
+      for (int j=0; j<g->nV; j++) {
+        if (g->edges[v][j] == 0) continue;
+        if (v != j && clr[j] == clr[v]) return 0;
+        if (clr[j]) continue; 
+        enterQueue(q,j);
+        clr[j] = nextClr;
+      }
+    }
+  }
+  ListPrint(stdout, l1); 
+  ListPrint(stdout, l2); 
 
   return 1;
 }

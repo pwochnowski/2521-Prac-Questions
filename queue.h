@@ -10,8 +10,8 @@ typedef struct QueueRep *Queue;
 
 Queue newQueue();
 void disposeQueue(Queue);
-void enterQueue(Queue,char *);
-char *leaveQueue(Queue);
+void enterQueue(Queue,int);
+int leaveQueue(Queue);
 int  emptyQueue(Queue);
 void showQueue(Queue q);
 

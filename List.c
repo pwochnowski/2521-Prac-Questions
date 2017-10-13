@@ -1,33 +1,19 @@
-// IntList.c - Lists of integers
+// List.c - Lists of integers
 // Written by John Shepherd, July 2008
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "assert.h"
-#include "IntList.h"
+#include "List.h"
 
-// data structures representing IntList
+// data structures representing List
 
-struct IntListNode {
-	int  data;  // value of this list item
-	struct IntListNode *next;
-	            // pointer to node containing next element
-};
-
-struct IntListRep {
-	int  size;  // number of elements in list
-	struct IntListNode *first;
-	            // node containing first value
-	struct IntListNode *last;
-	            // node containing last value
-};
-
-// create a new empty IntList
-IntList newIntList()
+// create a new empty List
+List newList()
 {
-	struct IntListRep *L;
+	struct ListRep *L;
 
-	L = malloc(sizeof (struct IntListRep));
+	L = malloc(sizeof (struct ListRep));
 	assert (L != NULL);
 	L->size = 0;
 	L->first = NULL;
@@ -36,37 +22,44 @@ IntList newIntList()
 }
 
 // free up all space associated with list
-void freeIntList(IntList L)
+void freeList(List L)
 {
-	// does nothing ...
+  ListNode *it = L->first;
+  ListNode *tmp;
+  while (it) {
+    tmp = it;
+    it = it->next;
+    free(tmp);
+  }
+  free(L);
 }
 
 // display list as one integer per line on stdout
-void showIntList(IntList L)
+void showList(List L)
 {
-	IntListPrint(stdout, L);
+	ListPrint(stdout, L);
 }
 
-// create an IntList by reading values from a file
+// create an List by reading values from a file
 // assume that the file is open for reading
-IntList getIntList(FILE *inf)
+List getList(FILE *inf)
 {
-	IntList L;
+	List L;
 	int v;
 
-	L = newIntList();
+	L = newList();
 	while (fscanf(inf,"%d",&v) != EOF)
-		IntListInsert(L,v);
+		ListInsert(L,v);
 	return L;
 }
 
-// create a new IntListNode with value v
+// create a new ListNode with value v
 // (this function is local to this ADT)
-static struct IntListNode *newIntListNode(int v)
+static struct ListNode *newListNode(int v)
 {
-	struct IntListNode *n;
+	struct ListNode *n;
 
-	n = malloc(sizeof (struct IntListNode));
+	n = malloc(sizeof (struct ListNode));
 	assert(n != NULL);
 	n->data = v;
 	n->next = NULL;
@@ -74,12 +67,12 @@ static struct IntListNode *newIntListNode(int v)
 }
 
 // apppend one integer to the end of a list
-void IntListInsert(IntList L, int v)
+void ListInsert(List L, int v)
 {
-	struct IntListNode *n;
+	struct ListNode *n;
 
 	assert(L != NULL);
-	n = newIntListNode(v);
+	n = newListNode(v);
 	if (L->first == NULL)
 		L->first = L->last = n;
 	else {
@@ -90,17 +83,17 @@ void IntListInsert(IntList L, int v)
 }
 
 // insert an integer into correct place in a sorted list
-void IntListInsertInOrder(IntList L, int v)
+void ListInsertInOrder(List L, int v)
 {
 	// This is INCORRECT
-	IntListInsert(L, v);
+	ListInsert(L, v);
 }
 
 // delete first occurrence of v from a list
 // if v does not occur in List, no effect
-void IntListDelete(IntList L, int v)
+void ListDelete(List L, int v)
 {
-	struct IntListNode *curr, *prev;
+	struct ListNode *curr, *prev;
 
 	assert(L != NULL);
 
@@ -125,7 +118,7 @@ void IntListDelete(IntList L, int v)
 }
 
 // return number of elements in a list
-int IntListLength(IntList L)
+int ListLength(List L)
 {
 	assert(L != NULL);
 	return L->size;
@@ -133,34 +126,34 @@ int IntListLength(IntList L)
 
 // make a physical copy of a list
 // new list looks identical to original list
-IntList IntListCopy(IntList L)
+List ListCopy(List L)
 {
-	struct IntListRep *Lnew;
-	struct IntListNode *curr;
+	struct ListRep *Lnew;
+	struct ListNode *curr;
 
-	Lnew = newIntList();
+	Lnew = newList();
 	for (curr = L->first; curr != NULL; curr = curr->next)
-		IntListInsert(Lnew, curr->data);
+		ListInsert(Lnew, curr->data);
 	return Lnew;
 }
 
 // make a sorted physical copy of a list
-IntList IntListSortedCopy(IntList L)
+List ListSortedCopy(List L)
 {
-	struct IntListRep *Lnew;
-	struct IntListNode *curr;
+	struct ListRep *Lnew;
+	struct ListNode *curr;
 
-	Lnew = newIntList();
+	Lnew = newList();
 	for (curr = L->first; curr != NULL; curr = curr->next)
-		IntListInsertInOrder(Lnew, curr->data);
+		ListInsertInOrder(Lnew, curr->data);
 	return Lnew;
 }
 
 // check whether a list is sorted in ascending order
 // returns 0 if list is not sorted, returns non-zero if it is
-int IntListIsSorted(IntList L)
+int ListIsSorted(List L)
 {
-	struct IntListNode *curr;
+	struct ListNode *curr;
 
 	assert(L != NULL);
 	// trivial cases, 0 or 1 items
@@ -175,10 +168,10 @@ int IntListIsSorted(IntList L)
 	return 1;
 }
 
-// check sanity of an IntList (for debugging)
-int IntListOK(IntList L)
+// check sanity of an List (for debugging)
+int ListOK(List L)
 {
-	struct IntListNode *p;
+	struct ListNode *p;
 	int count;
 
 	if (L == NULL)
@@ -196,9 +189,9 @@ int IntListOK(IntList L)
 
 // display list as one integer per line to a file
 // assume that the file is open for writing
-void IntListPrint(FILE *outf, IntList L)
+void ListPrint(FILE *outf, List L)
 {
-	struct IntListNode *curr;
+	struct ListNode *curr;
 
 	assert(L != NULL);
 	for (curr = L->first; curr != NULL; curr = curr->next)

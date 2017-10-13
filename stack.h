@@ -10,8 +10,8 @@ typedef struct StackRep *Stack;
 
 Stack newStack();
 void  disposeStack(Stack);
-void  pushOnto(Stack,char *);
-char  *popFrom(Stack);
+void  pushOnto(Stack,int );
+int popFrom(Stack);
 int   emptyStack(Stack);
 void  showStack(Stack s);
 
