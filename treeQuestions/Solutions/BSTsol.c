@@ -40,13 +40,16 @@ int findValue(Tree t, int v) {
   return findValue(t->left, v) || findValue(t->right, v);
 }
 
+//Helper function (should probably be static) 
+int isActuallyBST(Tree, int, int);
+
 // Check to see if the given tree is actually a BST
 // The rule is that from some arbitrary root, the left child's value must be
 // smaller than the root, and the right child bigger
 // return 0 if it isn't a BST, 1 if it is
 int isBST(Tree t) {
   int inf = 23151346; //close enough to infinity for our purposes
-  return isActuallyABST(t,-inf, inf);
+  return isActuallyBST(t,-inf, inf);
 }
 
 int isActuallyBST(Tree t, int lo, int hi) {
