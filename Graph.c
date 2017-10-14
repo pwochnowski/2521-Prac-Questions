@@ -36,11 +36,17 @@ typedef struct GraphRep {
 } GraphRep;
 
 /* 
- * Easy Questions 
+ * Easy/Medium Questions 
+ * - Likely to be asked in a prac exam 
  */
 
-// Write a function which takes in a Graph g, and returns 1 if
-// the graph has a cycle, 0 otherwise
+/*
+ * Cycle detection.
+ *
+ * Write a function which takes in an undirected Graph g, and returns 1 if
+ * the graph has a cycle, 0 otherwise
+ *
+ */
 
 int hasCycle(Graph g) {
 
@@ -48,11 +54,10 @@ int hasCycle(Graph g) {
 }
 
 /*
- * within()
  *
- * Given a unweighted graph, a starting vertex and a distance, return an array which contains all the
- * vertices that are at most that distance away. The vertices in the array should be in order
- * of increasing distance, and for vertices that are the same distance away, ordered from smallest to largest. You should also include the initial vertex in the array.
+ * Given a unweighted/undirected graph, a starting vertex and a distance, return an array which contains all the vertices that are at most that distance away. 
+ * The vertices in the array should be in order of increasing distance, and for vertices that are the same distance away, ordered from largest to smallest. 
+ * You should also include the initial vertex in the array and also store the number of vertices in the array you returned in size*.
  *
  *  0 -> 1 -> 2
  *  |
@@ -67,9 +72,6 @@ int* within(Graph g, int s, int d, int *size) {
 
 
 
-/*
- * Medium Questions
- */
 
 // Write a function which takes in a Graph g and returns a 
 // vertex-indexed connected components array
@@ -84,17 +86,21 @@ int* within(Graph g, int s, int d, int *size) {
 // vertices 2 and 3 are in the second connected component (represented by 1)
 
 int *components(Graph g) {
-  //Solution is in Course notes :D
 
   return NULL;
 }
 
 
+/*
+ * Hard Questions
+ * - Unlikely to be asked in a prac exam
+ */
+
 /* 
   Create a bipartition of the graph.
 
   Determine whether it is possible to split the vertices of a graph into two lists L1 and L2, such that no pair of vertices in the same list are connected by an edge in the graph. 
-  If this is possible, return 1 and store the two partitions seperately in either L1 or L2. 
+  If this is possible, return 1 and store the two partitions seperately in either L1 or L2. There will usually be multiple valid partitions, in this case you may return any valid answer. 
   If it is not possible, return 0.
 
   For example consider the following graph:
@@ -105,7 +111,7 @@ int *components(Graph g) {
   v           v
   4 <-> 3  -> 6
   bipartation(G, l1, l2) == 1,
-  one example of a bipartition for G is L1 = [1, 5, 3], L2 = [2, 4, 6]
+  one possible example of a bipartition for G is L1 = [1, 5, 3], L2 = [2, 4, 6]
 
 
   1 <-> 2 <-> 3 <---\

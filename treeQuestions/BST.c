@@ -33,12 +33,8 @@ struct tree {
 // Check if a value is in the tree
 // Should return 1 if it finds it, otherwise 0
 int findValue(Tree t, int v) {
-  if (t == NULL) return 0;
-  if (t->val == v) return 1;
-  int left = 0; int right = 0;
-  if (v < t->val) left = findValue(t->left, v);
-  if (v > t->val) right = findValue(t->right, v);
-  return (left || right); 
+
+  return 0;
 }
 
 // Check to see if the given tree is actually a BST
@@ -46,17 +42,7 @@ int findValue(Tree t, int v) {
 // smaller than the root, and the right child bigger
 // return 0 if it isn't a BST, 1 if it is
 int isBST(Tree t) {
-  if (t == NULL) return 1;
-
-  //else the node has one or two children.
-  if (t->left != NULL && t->left->val > t->val) return 0;
-  if (t->right != NULL && t->right->val < t->val) return 0;
-
-  fprintf(stderr, "current val is %d, left val is %d, right val is %d\n", (t == NULL) ? -1 : t->val, 
-    (t->left == NULL) ? -1 : t->left->val, (t->right == NULL) ? -1 : t->right->val);
-
-  //else this node is valid
-  return (isBST(t->left) && isBST(t->right));
+  return 0;
 }
 
 
@@ -77,9 +63,7 @@ int isBST(Tree t) {
     and that 0 <= k < n where n is the number of nodes in the tree
 */
 void getKthSmallest(Tree t, int* k, int** v) {
-  (void)t;
-  (void)k;
-  (void)v;
+
 }
 
 /* Find the lowest common ancestor between the noes with values v1 and v2.
@@ -100,9 +84,6 @@ void getKthSmallest(Tree t, int* k, int** v) {
    If v1 == 3, and v2 == 0, then their lowest common ancestor is 2
 */
 Tree lowestCommonAnc(Tree t, int v1, int v2) {
-  (void)t;
-  (void)v1;
-  (void)v2;
   return NULL;
 }
 

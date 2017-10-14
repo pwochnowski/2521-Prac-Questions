@@ -45,28 +45,22 @@ int findValue(Tree t, int v) {
 // smaller than the root, and the right child bigger
 // return 0 if it isn't a BST, 1 if it is
 int isBST(Tree t) {
+  int inf = 23151346; //close enough to infinity for our purposes
+  return isActuallyABST(t,-inf, inf);
+}
+
+int isActuallyBST(Tree t, int lo, int hi) {
   // Base case, if our tree is empty, return that it is a BST
   if (t == NULL) return 1;
 
-  // Check to see if our left and right branches are BST's
-  int leftBranch = isBST(t->left);
-  int rightBranch = isBST(t->right);
-  if (leftBranch == 0 || rightBranch == 0) {
-    return 0;
-  }
+  // We check our immediate root to see if they meet the BST property 
+  if (t->val <= lo || t->val >= hi) return 0;
+  
 
-  // Now we know that the left and right children are valid BST's
-  // We check our immediate root and children to see if they are valid
-  if (t->left != NULL && t->left->val > t->val) {
-    return 0;
-  }
-  if (t->right != NULL && t->right->val < t->val) {
-    return 0;
-  }
-
-  // All conditions pass, we can safely say that this whole tree under the root
-  // t is a valid BST!
-  return 1;
+  // Check to see if our left and right subtrees also maintain the BST invariant
+  int leftBranch = isActuallyBST(t->left, lo, t->val);
+  int rightBranch = isActuallyBST(t->right,t->val, hi);
+  return (leftBranch && rightBranch);
 }
 
 
