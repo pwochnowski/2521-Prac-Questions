@@ -14,4 +14,4 @@ Stack.o : Stack.c Stack.h
 Graph.o : Graph.c Graph.h
 
 clean :
-	rm -f crawl $(TESTS) *.o core
+	rm -f runtests $(TESTS) *.o core
