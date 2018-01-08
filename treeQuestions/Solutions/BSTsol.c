@@ -211,3 +211,56 @@ Tree buildTree(Tree t, int* vals, int n, Tree (*f)(Tree, int)) {
   return t;
 }
 
+
+Tree newNode(int v) {
+  Tree n = malloc(sizeof(struct tree));
+  n->val = v;
+  n->left = NULL;
+  n->right = NULL;
+  return n;
+}
+
+
+Tree buildInvalidTree(int c) {
+  Tree t = newNode(10); 
+  switch (c) {
+    case(0) :
+      t->left = newNode(5);
+      break;
+    case(1) :
+      t->right = newNode(5);
+      break;
+    case(2) :
+      t->left = newNode(5);
+      t->left->right = newNode(7);
+      break;
+    case(3) :
+      t->left = newNode(5);
+      t->left->right = newNode(15);
+      break;
+    case(4) :
+      t->left = newNode(5);
+      t->left->right = newNode(7);
+      break;
+    case(5) :
+      t->left = newNode(5);
+      t->left->right = newNode(15);
+      break;
+    case(6) :
+      t->left = newNode(5);
+      t->left->right = newNode(7);
+      t->left->right->left = newNode(6);
+      break;
+    case(7) :
+      t->left = newNode(5);
+      t->left->right = newNode(7);
+      t->left->right->left = newNode(6);
+      t->left->right->left->right = newNode(16);
+      break;
+  } 
+  return t;
+}
+
+
+
+
