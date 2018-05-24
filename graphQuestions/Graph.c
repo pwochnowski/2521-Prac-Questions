@@ -56,7 +56,7 @@ int hasCycle(Graph g) {
 /*
  *
  * Given a unweighted/undirected graph, a starting vertex and a distance, return an array which contains all the vertices that are at most that distance away. 
- * The vertices in the array should be in order of increasing distance, and for vertices that are the same distance away, ordered from largest to smallest. 
+ * The vertices in the array should be in order of increasing distance, and for vertices that are the same distance away, ordered from smallest to largest. 
  * You should also include the initial vertex in the array and also store the number of vertices in the array you returned in size*.
  *
  *  0 -> 1 -> 2
