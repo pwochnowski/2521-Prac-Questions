@@ -141,7 +141,7 @@ void testComponents() {
   assert(res[1] == res[2]);
   dropGraph(g);
 
-  g = newGraph(6);
+  g = newGraph(7);
   insertBEdge(g,0,1,1);
   insertBEdge(g,0,2,1);
   insertBEdge(g,1,2,1);
