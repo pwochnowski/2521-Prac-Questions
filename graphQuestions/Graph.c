@@ -63,7 +63,7 @@ int hasCycle(Graph g) {
  *  |
  *  v
  *  3
- *  within(g,0,1,&n) ==> [0, 1, 3], n == 3
+ *  within(g,0,1,&n) ==> [0, 3, 1], n == 3
  */
 int* within(Graph g, int s, int d, int *size) {
 
