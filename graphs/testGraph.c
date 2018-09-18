@@ -29,6 +29,7 @@ void testWithin() {
   assert(n == 2);
   assert(res[0] == 5);
   assert(res[1] == 1);
+  free(res);
 
   dropGraph(g);
   printf("Passed tests for within!\n");
