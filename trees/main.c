@@ -12,7 +12,8 @@ To run tests, go ./solution XXX where XXX is:\n\
   0     - findValue\n\
   1     - isBST\n\
   2     - getKthSmallest\n\
-  3     - lowestCommonAnc\n");
+  3     - lowestCommonAnc\n\
+  4     - successor\n");
 }
 
 int main(int argc, char* argv[]) {
@@ -26,6 +27,7 @@ int main(int argc, char* argv[]) {
     isBSTTests,
     kthSmallestTests,
     lowestCommonAncTests,
+    successorTests
   };
 
   unsigned long testNum = 0;

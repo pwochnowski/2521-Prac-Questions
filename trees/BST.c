@@ -49,6 +49,14 @@ int isBST(Tree t) {
 /*
  * Medium Questions
  */
+/*
+ * Given a pointer to a node in the tree, return its in order successor node in the tree, that is the node in the tree whose value is the smallest value larger than the value of the given node. If no successor node exists return NULL.
+ */
+
+Tree successor(Tree t, Tree target) {
+  return NULL;
+}
+
 /* 
    You are given a Tree (t), and two pointers.
    k is a pointer to the 'kth' smallest value you should go to
@@ -102,6 +110,21 @@ void destroyTree(Tree t) {
   destroyTree(t->right);
   destroyTree(t->left);
   free(t);
+}
+
+int  getValue(Tree t) {
+  return t->val;
+}
+
+Tree find(Tree t, int v) {
+  if (t->val == v) return t;
+  if (t->val < v) {
+    return find(t->right, v);
+  } else if (t->val > v) {
+    return find(t->left, v);
+  } else {
+    return NULL;
+  }
 }
 
 Tree insert(Tree t, int v) {

@@ -70,6 +70,34 @@ int isActuallyBST(Tree t, int lo, int hi) {
 /*
  * Medium Questions
  */
+
+/*
+ * Given a pointer to a node in the tree, return the value of its in order successor node in the tree, that is the smallest value belonging to a node in the tree that is larger than the given one.
+ */
+
+//Helper function 1
+Tree min(Tree t) {
+  return (t->left) ? min(t->left) : t;
+}
+
+//Helper function 2
+Tree succ(Tree t, int v) {
+  Tree res = NULL;
+  if (v < t->val) {
+    res = succ(t->left, v);
+    //If we haven't found a successor then the current node must be the successor since it's bigger than v
+    //and no nodes smaller than it are the successor
+    if (res == NULL) res = t;
+  } else if (v > t->val) {
+    res = succ(t->right, v);
+  }
+  return res;
+}
+
+//The successor is either the smallest node in the right subtree or the last node on the path from the root to target where we turned left.
+Tree successor(Tree t, Tree target) {
+  return (target->right) ? min(target->right) : succ(t, target->val);
+}
 /* 
    You are given a Tree (t), and two pointers.
    k is a pointer to the 'kth' smallest value you should go to
