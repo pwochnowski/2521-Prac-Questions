@@ -35,6 +35,29 @@ typedef struct GraphRep {
    int **edges; // matrix of booleans
 } GraphRep;
 
+int bfsConnected(Graph g, int v) {
+    int *visited = malloc(sizeof(int) * g->nV);
+    int i = 0;
+    for (i = 0; i < g->nV; i++) visited[i] = -1;
+    visited[v] = v;
+    Queue q = newQueue();
+    enterQueue(q, v);
+    int count = 0;
+    while (!emptyQueue(q)) {
+        int w = leaveQueue(q);
+        for (i = 0; i < g->nV; i++) {
+            if (adjacent(g, w, i) == 1) {
+                if (visited[i] == -1) {
+                    visited[i] = w;
+                    count++;
+                    enterQueue(q, i);
+                }
+            }
+        }
+    }
+    return count;
+}
+
 /* 
  * Easy Questions 
  */

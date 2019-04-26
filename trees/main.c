@@ -13,7 +13,8 @@ To run tests, go ./solution XXX where XXX is:\n\
   1     - isBST\n\
   2     - getKthSmallest\n\
   3     - lowestCommonAnc\n\
-  4     - successor\n");
+  4     - successor\n\
+  5     - map\n");
 }
 
 int main(int argc, char* argv[]) {
@@ -27,7 +28,8 @@ int main(int argc, char* argv[]) {
     isBSTTests,
     kthSmallestTests,
     lowestCommonAncTests,
-    successorTests
+    successorTests,
+    mapTests
   };
 
   unsigned long testNum = 0;

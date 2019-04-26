@@ -158,7 +158,110 @@ void testComponents() {
   printf("Passed all tests for components!!\n");
 }
 
+void testNumComponents() {
+    Graph g;
+    g = newGraph(3);
+    insertBEdge(g,0,1,1);
+    insertBEdge(g,0,2,1);
+    insertBEdge(g,1,2,1);
+    int n = numComponents(g);
+    assert(n == 1);
+    dropGraph(g);
+
+    g = newGraph(5);
+    n = numComponents(g);
+    assert(n == 5);
+
+    g = newGraph(7);
+    insertBEdge(g,0,1,1);
+    insertBEdge(g,0,2,1);
+    insertBEdge(g,1,2,1);
+    insertBEdge(g,3,4,1);
+    insertBEdge(g,5,6,1);
+    n = numComponents(g);
+    assert(n == 3);
+    dropGraph(g);
+
+    printf("Passed all tests for numcomponents!!\n");
+}
+
+void testbfsConnected(void) {
+    Graph g1 = newGraph(1);
+    assert(bfsConnected(g1, 0) == 0);
+    
+    Graph g2 = newGraph(2);
+    assert(bfsConnected(g2,0) == 0);
+    
+    Graph g3 = newGraph(2);
+    insertBEdge(g3,0,1,1);
+    assert(bfsConnected(g3,0) == 1);
+    
+    Graph g4 = newGraph(10);
+    insertBEdge(g4,3,4,1);
+    assert(bfsConnected(g4,0) == 0);
+    assert(bfsConnected(g4,4) == 1);
+    
+    Graph g5 = newGraph(10);
+    insertBEdge(g5,2,3,1);
+    insertBEdge(g5,4,3,1);
+    insertBEdge(g5,7,4,1);
+    insertBEdge(g5,0,7,1);
+    insertBEdge(g5,0,3,1);
+    insertBEdge(g5,8,9,1);
+    assert(bfsConnected(g5,3) == 4);
+    assert(bfsConnected(g5,8) == 1);
+    assert(bfsConnected(g5,2) == 4);
+    assert(bfsConnected(g5,7) == 4);
+    assert(bfsConnected(g5,0) == 4);
+    assert(bfsConnected(g5,6) == 0);
+    
+}
+
+void testnumpaths(void) {
+    Graph g1 = newGraph(2);
+    assert(numPaths(g1, 0, 1) == 0);
+
+    Graph g2 = newGraph(2);
+    insertBEdge(g2,0,1,1);
+    assert(numPaths(g2,0,1) == 1);
+    
+    Graph g3 = newGraph(4);
+    insertBEdge(g3,0,1,1);
+    insertBEdge(g3,1,2,1);
+    insertBEdge(g3,0,3,1);
+    insertBEdge(g3,3,2,1);
+    assert(numPaths(g3,0,2) == 2);
+    
+    Graph g4 = newGraph(6);  // 1 -> 4
+    insertBEdge(g4,1,2,1);
+    insertBEdge(g4,2,3,1);
+    insertBEdge(g4,3,4,1);
+    
+    insertBEdge(g4,1,0,1);
+    insertBEdge(g4,0,2,1);
+    
+    insertBEdge(g4,1,5,1);
+    insertBEdge(g4,5,2,1);
+    assert(numPaths(g4,1,4) == 3);
+    assert(numPaths(g4,2,4) == 1);
+    
+    Graph g5 = newGraph(8);
+    insertBEdge(g5, 0, 1, 1);
+    insertBEdge(g5, 0, 5, 1);
+    insertBEdge(g5, 1, 5, 1);
+    insertBEdge(g5, 1, 2, 1);
+    insertBEdge(g5, 2, 5, 1);
+    insertBEdge(g5, 2, 3, 1);
+    insertBEdge(g5, 3, 5, 1);
+    insertBEdge(g5, 3, 4, 1);
+    insertBEdge(g5, 4, 5, 1);
+    assert(numPaths(g5,0,5) == 5);
+}
+
 int main() {
+  testbfsConnected();
+  testnumpaths();
+  testNumComponents();
   testCycle();
   testWithin();
   testBipartition();

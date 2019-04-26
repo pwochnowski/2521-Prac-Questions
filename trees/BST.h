@@ -8,6 +8,7 @@ int isBST(Tree t);
 void getKthSmallest(Tree t, int* k, int** v);
 Tree lowestCommonAnc(Tree t, int v1, int v2);
 Tree successor(Tree t, Tree target);
+void map(Tree t, int (*f)(int));
 
 Tree find(Tree t, int v);
 int getValue(Tree t);
