@@ -56,10 +56,6 @@ The map() function applies f to the value in each tree node, and then replaces t
 // note: the autotests for this rely on a working findValue() solution
 
 void map(Tree t, int (*f)(int)) {
-    if (t == NULL) return;
-    t->val = (*f)(t->val);
-    map(t->left, f);
-    map(t->right, f);
     return;
 }
 
