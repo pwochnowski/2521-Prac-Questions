@@ -35,6 +35,29 @@ typedef struct GraphRep {
    int **edges; // matrix of booleans
 } GraphRep;
 
+// Warm up questions
+
+// write a function that takes an undirected Graph g, a vertex v, and returns
+// the total number of nodes connected to that vertex
+// a node is "connected" if it is reachable from the source vertex v
+
+int bfsConnected(Graph g, int v) {
+    return 0;
+}
+
+// write a function that takes a graph, a source vertex and a
+// destination vertex and finds the number of unique paths from
+// the source to the destination
+int numPaths(Graph g, int src, int dest) {
+    return 0;
+}
+
+// (13s1 final exam question)
+// write a function that takes a graph and returns the number of components
+int numComponents(Graph g) {
+    return 0;
+}
+
 /* 
  * Easy/Medium Questions 
  * - Likely to be asked in a prac exam 

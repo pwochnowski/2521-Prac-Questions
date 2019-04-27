@@ -33,8 +33,30 @@ struct tree {
 // Check if a value is in the tree
 // Should return 1 if it finds it, otherwise 0
 int findValue(Tree t, int v) {
+    return 0;
+}
 
-  return 0;
+// (COMP1927 15s2 Final Exam Q1)
+
+/*
+ Your task for this question is to implement the map() function.
+
+The map() function is defined as follows:
+
+void map(BSTree t, int (*f)(int)) { ... }
+
+and takes two parameters:
+
+    t ... an instance of the BSTree ADT (i.e. a binary search tree)
+    f ... a pointer to a function mapping an int to an int
+
+The map() function applies f to the value in each tree node, and then replaces the original value in the node by the result returned by the function. The actual function supplied for f must have the type int→int (e.g. like decr()). You can find a skeleton map() function at around line 137 in the BSTree.c file. 
+*/
+
+// note: the autotests for this rely on a working findValue() solution
+
+void map(Tree t, int (*f)(int)) {
+    return;
 }
 
 // Check to see if the given tree is actually a BST

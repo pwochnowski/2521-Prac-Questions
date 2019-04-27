@@ -11,6 +11,9 @@
 // graph representation is hidden
 typedef struct GraphRep *Graph;
 
+int bfsConnected(Graph g, int v);
+int numPaths(Graph g, int src, int dest);
+int numComponents(Graph g);
 int *within(Graph, int, int, int*);
 int bipartition(Graph, List, List);
 int* components(Graph);

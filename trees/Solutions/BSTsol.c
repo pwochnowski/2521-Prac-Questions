@@ -40,6 +40,13 @@ int findValue(Tree t, int v) {
   return findValue(t->left, v) || findValue(t->right, v);
 }
 
+void map(Tree t, int (*f)(int)) {
+    if (t == NULL) return;
+    t->val = (*f)(t->val);
+    map(t->left, f);
+    map(t->right, f);
+}
+
 //Helper function (should probably be static) 
 int isActuallyBST(Tree, int, int);
 
