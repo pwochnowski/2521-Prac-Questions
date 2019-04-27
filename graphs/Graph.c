@@ -35,7 +35,10 @@ typedef struct GraphRep {
    int **edges; // matrix of booleans
 } GraphRep;
 
-// Warm up questions
+/* 
+ * Easy/Medium Questions 
+ * - Likely to be asked in a prac exam 
+ */
 
 // write a function that takes an undirected Graph g, a vertex v, and returns
 // the total number of nodes connected to that vertex
@@ -46,8 +49,8 @@ int bfsConnected(Graph g, int v) {
 }
 
 // write a function that takes a graph, a source vertex and a
-// destination vertex and finds the number of unique paths from
-// the source to the destination
+// destination vertex and finds the number of unique paths 
+// (that don't contain a cycle) from the source to the destination
 int numPaths(Graph g, int src, int dest) {
     return 0;
 }
@@ -58,10 +61,6 @@ int numComponents(Graph g) {
     return 0;
 }
 
-/* 
- * Easy/Medium Questions 
- * - Likely to be asked in a prac exam 
- */
 
 /*
  * Cycle detection.
